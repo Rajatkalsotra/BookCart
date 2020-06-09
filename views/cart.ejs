@@ -1,0 +1,158 @@
+<% include ./partials/header %>
+
+<link rel="stylesheet" type="text/css" href="/styles/cart.css">
+<link rel="stylesheet" type="text/css" href="/styles/cart_responsive.css">
+	<div class="super_container_inner">
+		<div class="super_overlay"></div>
+
+		<!-- Home -->
+
+		<div class="home">
+			<div class="home_container d-flex flex-column align-items-center justify-content-end">
+				<div class="home_content text-center">
+					<div class="home_title">Shopping Cart</div>
+					<div class="breadcrumbs d-flex flex-column align-items-center justify-content-center">
+						<ul class="d-flex flex-row align-items-start justify-content-start text-center">
+							<li><a href="#">Home</a></li>
+							<li>Your Cart</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Cart -->
+
+		<div class="cart_section">
+			<div class="container">
+				<div class="row">
+					<div class="col">
+						<div class="cart_container">
+							
+							<!-- Cart Bar -->
+							<div class="cart_bar">
+								<ul class="cart_bar_list item_list d-flex flex-row align-items-center justify-content-end">
+									<li class="mr-auto">Product</li>
+									<li>Price</li>
+									<!-- <li>Quantity</li>
+									<li>Total</li> -->
+								</ul>
+							</div>
+
+							<!-- Cart Items -->
+							<div class="cart_items">
+								<ul class="cart_items_list">
+
+									<!-- Cart Item -->
+									<% for(let i=0;i<data.length;i++){ %>
+										<li class="cart_item item_list d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-end justify-content-start">
+										<div class="product d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start mr-auto">
+											<div><div class="product_number"><%= i+1 %></div></div>
+											<div><div class="product_image"><img src="<%= data[i].p_photo %>" alt=""></div></div>
+											<div class="product_name_container">
+												<div class="product_name"><a href="book/<%= data[i].p_id %>"><%= data[i].p_name %></a></div>
+												<!-- <div class="product_text">Second line for additional info</div> -->
+											</div>
+										</div>
+										
+										<div class="product_price product_text"><span>Price: </span>₹<%= data[i].p_price %></div>
+										
+										<!-- <div class="product_quantity_container">
+											<div class="product_quantity ml-lg-auto mr-lg-auto text-center">
+												<span class="product_text product_num"><%= data[i].quantity %></span>
+												<div class="qty_sub qty_button trans_200 text-center"><span>-</span></div>
+												<div class="qty_add qty_button trans_200 text-center"><span>+</span></div>
+											</div>
+										</div> -->
+										<button onclick="location.href='/remove/<%= data[i].p_id %>'" class="btn btn-danger">Remove</button>
+										<!-- <div class="product_total product_text"><span>Total: </span>₹</div> -->
+									</li>
+									<% } %>
+									
+								</ul>
+							</div>
+
+							<!-- Cart Buttons -->
+							<!-- <div class="cart_buttons d-flex flex-row align-items-start justify-content-start">
+								<div class="cart_buttons_inner ml-sm-auto d-flex flex-row align-items-start justify-content-start flex-wrap">
+									<div class="button button_clear trans_200"><a href="categories.html">clear cart</a></div>
+									<div class="button button_continue trans_200"><a href="categories.html">continue shopping</a></div>
+								</div>
+							</div> -->
+						</div>
+					</div>
+				</div>
+				<div class="row cart_extra_row">
+					<div class="col-lg-6">
+						<div class="cart_extra cart_extra_1">
+							<div class="cart_extra_content cart_extra_coupon">
+								
+								<div class="shipping">
+									<div class="cart_extra_title">Payment Method</div>
+									<ul>
+										<li class="shipping_option d-flex flex-row align-items-center justify-content-start">
+											<label class="radio_container">
+												<input type="radio" id="radio_1" name="shipping_radio" checked="checked" class="shipping_radio">
+												<span class="radio_mark"></span>
+												<span class="radio_text">Cash on delivery</span>
+											</label>
+											<div class="shipping_price ml-auto">₹0</div>
+										</li>
+										<li class="shipping_option d-flex flex-row align-items-center justify-content-start">
+											<label class="radio_container" >
+												<input type="radio" id="radio_2" name="shipping_radio" class="shipping_radio" disabled style="color:lightgray;">
+												<span class="radio_mark" style="color:lightgray;"></span>
+												<span class="radio_text" style="color:lightgray !important;" >Online payment(coming soon)</span>
+											</label>
+											<div class="shipping_price ml-auto">₹0</div>
+										</li>
+										
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-6 cart_extra_col">
+						<div class="cart_extra cart_extra_2">
+							<div class="cart_extra_content cart_extra_total">
+								<div class="cart_extra_title">Cart Total</div>
+								<ul class="cart_extra_total_list">
+									<li class="d-flex flex-row align-items-center justify-content-start">
+										<div class="cart_extra_total_title">Subtotal</div>
+										<div class="cart_extra_total_value ml-auto">₹</div>
+									</li>
+									<li class="d-flex flex-row align-items-center justify-content-start">
+										<div class="cart_extra_total_title">Shipping</div>
+										<div class="cart_extra_total_value ml-auto">Free</div>
+									</li>
+									<li class="d-flex flex-row align-items-center justify-content-start">
+										<div class="cart_extra_total_title">Total</div>
+										<div class="cart_extra_total_value ml-auto">₹</div>
+									</li>
+								</ul>
+								<div class="checkout_button trans_200"><a style="color: aliceblue;cursor: pointer;" data-toggle="modal" data-target="#confirm">Proceed to Checkout</a></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="confirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+			  <div class="modal-content">
+				<div class="modal-header">
+				  <h5 class="modal-title" id="exampleModalLabel">Status</h5>
+				  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				  </button>
+				</div>
+				<div class="modal-body">
+				  Confirm your order.Thanks for ordering from us.
+				</div>
+				<div class="modal-footer">
+				  <button type="button" class="btn btn-success" onclick="location.href='/confirmOrder'">Confirm</button>
+				</div>
+			  </div>
+			</div>
+		  </div>
+<% include ./partials/footer %>

@@ -1,0 +1,118 @@
+<% include ./partials/header %>
+<link rel="stylesheet" type="text/css" href="/plugins/flexslider/flexslider.css">
+<link rel="stylesheet" type="text/css" href="/styles/product.css">
+<link rel="stylesheet" type="text/css" href="/styles/product_responsive.css">
+<div class="super_container_inner">
+	<div class="super_overlay"></div>
+
+	<!-- Home -->
+	<div class="home">
+		<div class="home_container d-flex flex-column align-items-center justify-content-end">
+			<div class="home_content text-center">
+				<div class="home_title">Product Page</div>
+				<div class="breadcrumbs d-flex flex-column align-items-center justify-content-center">
+					<ul class="d-flex flex-row align-items-start justify-content-start text-center">
+						<li><a href="/cart">Cart</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Product -->
+	<div class="product">
+		<div class="container">
+			<div class="row">
+				<!-- Product Image -->
+				<div class="col-lg-5">
+					<div class="product_image_slider_container">
+						<li class="" style="display: block;">
+							<img src="<%= result.p_photo %>" draggable="false">
+						</li>
+					</div>
+				</div>
+
+				<!-- Product Info -->
+				<div class="col-lg-6 product_col">
+					<div class="product_info">
+						<div class="product_name"><%= result.p_name %></div>
+						<!-- <div class="product_category">In <a href="#">Category</a></div> -->
+						<div class="product_rating_container d-flex flex-row align-items-center justify-content-start">
+							<div id="rating" class="rating_r rating_r_5 product_rating">
+								<i></i><i></i><i></i><i></i><i></i></div>
+							<div class="product_reviews">(<%= result.review %>)</div>
+						</div>
+						<div class="product_price">₹<%= result.p_price %></div>
+
+						<div class="product_text">
+							<p><%= result.p_desc %></p>
+						</div>
+						<div class="product_buttons">
+							<div class="text-right d-flex flex-row align-items-start justify-content-start">
+								<div data-toggle="modal" data-target="#reviewModal"
+									class="product_button product_fav text-center d-flex flex-column align-items-center justify-content-center">
+									<div>
+										<div><img src="/images/heart_2.svg" class="svg" alt="">
+											<div>+</div>
+										</div>
+									</div>
+								</div>
+								<div onclick="location.href='/addtocart/<%= result.p_id %>'"
+									class="product_button product_cart text-center d-flex flex-column align-items-center justify-content-center">
+									<div>
+										<div><img src="/images/cart.svg" class="svg" alt="">
+											<div>+</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="reviewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+		aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Add Review</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<form action="/review/<%= result.p_id %>" method="post" id="addR">
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-lg-11">
+								<div class="form-group contact-block1">
+										<select  name="review" class="form-control" form="addR">
+												<option value="1">1</option>
+												<option  value="2">2</option>
+												<option value="3">3</option>
+												<option  value="4">4</option>
+												<option  value="5">5</option>
+
+											  </select>
+									<!-- <input type="number" name="review" class="form-control" id="name" placeholder="e.g. 4"
+										required="required" min="1" max="5" /> -->
+								</div>
+							</div>
+						</div>
+					</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-primary">Save Review</button>
+				</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<script src="/js/jquery-3.2.1.min.js"></script>
+	<script>
+		$(document).ready(function () {
+			$("div#rating").attr("class", "rating_r product_rating  rating_r_" + "<%= result.review.toFixed(0) %>");
+		});
+
+	</script>
+
+	<% include ./partials/footer %>
